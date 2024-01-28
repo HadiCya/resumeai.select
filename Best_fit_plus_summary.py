@@ -2,7 +2,6 @@ from langchain_openai import ChatOpenAI
 import json
 import os
 import pprint
-os.environ["OPENAI_API_KEY"] = "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"
 
 def proompting (data, job_desc):
     print(data)
