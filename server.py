@@ -71,22 +71,104 @@ model = genai.GenerativeModel(model_name="gemini-pro",
 # Controllers API
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def home():
-    if session.get("user"):
-        user_info = session["user"]
-        user_id = user_info["userinfo"]["sub"]
+    if not session.get("user"):
+            return redirect(url_for("login"))
 
-        existing_data = kv.read(user_id)
+    user_info = session["user"]
+    user_id = user_info["userinfo"]["sub"]
 
-        return render_template(
-            "index.html",
-            session=user_info,
-            pretty=json.dumps(user_info, indent=4),
-            existing_data=existing_data
-        )
-    else:
-        return render_template("index.html")
+    if request.method == "POST":
+        # Personal information and links
+        personal_info = {
+            "name": request.form.get("name", ""),
+            "email": request.form.get("email", ""),
+            "phone_number": request.form.get("phone_number", "")
+        }
+        links = {
+            "linkedin": request.form.get("linkedin", ""),
+            "github": request.form.get("github", ""),
+            "website": request.form.get("website", "")
+        }
+
+        # Initialize containers for each dynamic section
+        education_data = []
+        research_experience_data = []
+        industry_experience_data = []
+        projects_data = []
+        technical_skills_data = {
+            "languages": request.form.getlist("languages"),
+            "frameworks": request.form.getlist("frameworks"),
+            "dev_tools": request.form.getlist("dev_tools"),
+            "libraries": request.form.getlist("libraries")
+        }
+
+        # Process each dynamic section
+        for key in request.form:
+            # Education Data
+            if key.startswith('education_'):
+                parts = key.split('_')
+                index = parts[1]
+                field = parts[2]
+                if len(education_data) < int(index):
+                    education_data.append({})
+                education_data[int(index)-1][field] = request.form[key]
+
+            # Research Experience Data
+            elif key.startswith('researchexperience_'):
+                parts = key.split('_')
+                index = parts[1]
+                field = parts[2]
+                if len(research_experience_data) < int(index):
+                    research_experience_data.append({})
+                research_experience_data[int(index)-1][field] = request.form[key]
+
+            # Industry Experience Data
+            elif key.startswith('industryexperience_'):
+                parts = key.split('_')
+                index = parts[1]
+                field = parts[2]
+                if len(industry_experience_data) < int(index):
+                    industry_experience_data.append({})
+                industry_experience_data[int(index)-1][field] = request.form[key]
+
+            # Projects Data
+            elif key.startswith('projects_'):
+                parts = key.split('_')
+                index = parts[1]
+                field = parts[2]
+                if len(projects_data) < int(index):
+                    projects_data.append({})
+                projects_data[int(index)-1][field] = request.form[key]
+
+        # Compile all data
+        user_data = {
+            "personal_info": personal_info,
+            "links": links,
+            "education": education_data,
+            "research_experience": research_experience_data,
+            "industry_experience": industry_experience_data,
+            "projects": projects_data,
+            "technical_skills": technical_skills_data
+        }
+
+        # Serialize data to JSON
+        json_data = json.dumps(user_data)
+
+        # Storing data in Cloudflare KV (assuming kv.write is a valid function call)
+        kv.write({user_id: json_data})
+
+        return redirect(url_for("home"))
+
+    existing_data = kv.read(user_id)
+
+    return render_template(
+        "index.html",
+        session=user_info,
+        pretty=json.dumps(user_info, indent=4),
+        existing_data=existing_data
+    )
 
 
 @app.route("/callback", methods=["GET", "POST"])
@@ -118,95 +200,6 @@ def logout():
             quote_via=quote_plus,
         )
     )
-
-@app.route("/submit-school-info", methods=["POST"])
-def submit_school_info():
-    if not session.get("user"):
-        return redirect(url_for("login"))
-
-    user_info = session["user"]
-    user_id = user_info["userinfo"]["sub"]
-
-    # Personal information and links
-    personal_info = {
-        "name": request.form.get("name", ""),
-        "email": request.form.get("email", ""),
-        "phone_number": request.form.get("phone_number", "")
-    }
-    links = {
-        "linkedin": request.form.get("linkedin", ""),
-        "github": request.form.get("github", ""),
-        "website": request.form.get("website", "")
-    }
-
-    # Initialize containers for each dynamic section
-    education_data = []
-    research_experience_data = []
-    industry_experience_data = []
-    projects_data = []
-    technical_skills_data = {
-        "languages": request.form.getlist("languages"),
-        "frameworks": request.form.getlist("frameworks"),
-        "dev_tools": request.form.getlist("dev_tools"),
-        "libraries": request.form.getlist("libraries")
-    }
-
-    # Process each dynamic section
-    for key in request.form:
-        # Education Data
-        if key.startswith('education_'):
-            parts = key.split('_')
-            index = parts[1]
-            field = parts[2]
-            if len(education_data) < int(index):
-                education_data.append({})
-            education_data[int(index)-1][field] = request.form[key]
-
-        # Research Experience Data
-        elif key.startswith('researchexperience_'):
-            parts = key.split('_')
-            index = parts[1]
-            field = parts[2]
-            if len(research_experience_data) < int(index):
-                research_experience_data.append({})
-            research_experience_data[int(index)-1][field] = request.form[key]
-
-        # Industry Experience Data
-        elif key.startswith('industryexperience_'):
-            parts = key.split('_')
-            index = parts[1]
-            field = parts[2]
-            if len(industry_experience_data) < int(index):
-                industry_experience_data.append({})
-            industry_experience_data[int(index)-1][field] = request.form[key]
-
-        # Projects Data
-        elif key.startswith('projects_'):
-            parts = key.split('_')
-            index = parts[1]
-            field = parts[2]
-            if len(projects_data) < int(index):
-                projects_data.append({})
-            projects_data[int(index)-1][field] = request.form[key]
-
-    # Compile all data
-    user_data = {
-        "personal_info": personal_info,
-        "links": links,
-        "education": education_data,
-        "research_experience": research_experience_data,
-        "industry_experience": industry_experience_data,
-        "projects": projects_data,
-        "technical_skills": technical_skills_data
-    }
-
-    # Serialize data to JSON
-    json_data = json.dumps(user_data)
-
-    # Storing data in Cloudflare KV (assuming kv.write is a valid function call)
-    kv.write({user_id: json_data})
-
-    return "Information submitted successfully!"
 
 @app.route('/generate-pdf', methods=['POST'])
 def generate_pdf():
@@ -247,4 +240,4 @@ def download_pdf(filename):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=env.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=env.get("PORT", 3000))
