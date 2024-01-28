@@ -5,7 +5,7 @@ from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
-from flask import Flask, redirect, render_template, session, url_for, request, Response, jsonify
+from flask import Flask, redirect, render_template, session, url_for, request, Response, jsonify, send_file
 import workers_kv
 from pylatex import Document, Section, Subsection, Command
 from pylatex.utils import italic, NoEscape
@@ -210,30 +210,40 @@ def submit_school_info():
 
 @app.route('/generate-pdf', methods=['POST'])
 def generate_pdf():
+    if session.get("user"):
+        user_info = session["user"]
+        user_id = user_info["userinfo"]["sub"]
+        prompt_parts = [
+        f"Create a job description with the given HTML file {request}",
+        ]
 
-    prompt_parts = [
-    f"Create a job description with the given HTML file {request}",
-    ]
+        response = model.generate_content(prompt_parts)
+        print(response.text)
 
-    response = model.generate_content(prompt_parts)
-    print(response.text)
+        # Assuming you get your LaTeX code from the POST request
+        # Here, we create a simple LaTeX document for demonstration
+        doc = Document()
 
-    return jsonify({"download-url": "google.com"})
+        with doc.create(Section('A section')):
+            doc.append('Some regular text and some ')
+            doc.append(italic('italic text. '))
+            with doc.create(Subsection('A subsection')):
+                doc.append('Also, some crazy characters: $&#{}')
 
-# @app.route('/generate-pdf', methods=['POST'])
-# def generate_pdf():
-#     # Assuming you get your LaTeX code from the POST request
-#     # Here, we create a simple LaTeX document for demonstration
-#     doc = Document()
+        
+        # Compile LaTeX document
+        doc.generate_pdf(user_id, clean_tex=False)
 
-#     with doc.create(Section('A section')):
-#         doc.append('Some regular text and some ')
-#         doc.append(italic('italic text. '))
-#         with doc.create(Subsection('A subsection')):
-#             doc.append('Also, some crazy characters: $&#{}')
+        download_url = request.url_root + 'download/' + user_id + ".pdf"
 
-#     # Compile LaTeX document
-#     doc.generate_pdf('basic_maketitle', clean_tex=False)
+        return {'download_url': download_url}
+    else:
+        return {'setup': 'resumeai.select'}
+
+@app.route('/download/<filename>', methods=['GET'])
+def download_pdf(filename):
+    # Send the generated PDF file for download
+    return send_file(filename, as_attachment=True)
 
 
 if __name__ == "__main__":
