@@ -1,11 +1,14 @@
+import io
 import json
 from os import environ as env
 from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
-from flask import Flask, redirect, render_template, session, url_for, request
+from flask import Flask, redirect, render_template, session, url_for, request, Response
 import workers_kv
+from pylatex import Document, Section, Subsection, Command
+from pylatex.utils import italic, NoEscape
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -24,7 +27,7 @@ oauth.register(
     client_kwargs={
         "scope": "openid profile email",
     },
-    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration',
+    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
 kv = workers_kv.Namespace(account_id=env.get("CF_ACCOUNT_ID"),
@@ -52,7 +55,7 @@ def home():
             existing_data=existing_data
         )
     else:
-        return render_template("home.html")
+        return render_template("index.html")
 
 
 @app.route("/callback", methods=["GET", "POST"])
@@ -151,6 +154,21 @@ def submit_school_info():
     kv.write({user_id: json_data})
 
     return "Information submitted successfully!"
+
+@app.route('/generate-pdf', methods=['POST'])
+def generate_pdf():
+    # Assuming you get your LaTeX code from the POST request
+    # Here, we create a simple LaTeX document for demonstration
+    doc = Document()
+
+    with doc.create(Section('A section')):
+        doc.append('Some regular text and some ')
+        doc.append(italic('italic text. '))
+        with doc.create(Subsection('A subsection')):
+            doc.append('Also, some crazy characters: $&#{}')
+
+    # Compile LaTeX document
+    doc.generate_pdf('basic_maketitle', clean_tex=False)
 
 
 if __name__ == "__main__":
