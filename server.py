@@ -236,9 +236,9 @@ def generate_pdf():
 
         download_url = request.url_root + 'download/' + user_id + ".pdf"
 
-        return {'download_url': download_url}
+        return {'url': download_url}
     else:
-        return {'setup': 'resumeai.select'}
+        return {'url': 'resumeai.select'}
 
 @app.route('/download/<filename>', methods=['GET'])
 def download_pdf(filename):
