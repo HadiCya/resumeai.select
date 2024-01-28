@@ -86,24 +86,24 @@
                 <div class="card" id="Personal Information">
                     <button type="button" class="button is-large collapsible">Personal Information</button>
                     <div class="content">
-                        <input class="input" type="text" placeholder="Name" name="name" value="{{ existing_data.personal_info.name }}">
-                        <input class="input" type="email" placeholder="Email" name="email" value="{{ existing_data.personal_info.email }}">
-                        <input class="input" type="number" placeholder="Phone number" name="phone_number" value="{{ existing_data.personal_info.phone_number }}">
+                        <input class="input" type="text" placeholder="Name" name="name">
+                        <input class="input" type="email" placeholder="Email" name="email">
+                        <input class="input" type="number" placeholder="Phone number" name="phone_number">
                     </div>
                 </div>
                 <div class="card" id="links">
                     <button type="button" class="button is-large collapsible">Links</button>
                     <div class="content">
-                        <input class="input" type="url" placeholder="LinkedIn" name="linkedin" value="{{ existing_data.links.linkedin }}">
-                        <input class="input" type="url" placeholder="Github" name="github" value="{{ existing_data.links.github }}">
-                        <input class="input" type="url" placeholder="Website" name="website" value="{{ existing_data.links.website }}">
+                        <input class="input" type="url" placeholder="LinkedIn" name="linkedin">
+                        <input class="input" type="url" placeholder="Github" name="github">
+                        <input class="input" type="url" placeholder="Website" name="website">
                     </div>
                 </div>
                 <div class="card" id="education">
                     <button type="button" class="button is-large collapsible">Education</button>
                     <div class="content">
                         {% for edu in existing_data.education %}
-                        
+
                         {% endfor %}
                         <button type="button" id="educationButton" class="button is-light is-info center">Add New</button>
                         <div id="educationDiv"></div>
