@@ -155,21 +155,21 @@ def submit_school_info():
 
     return "Information submitted successfully!"
 
-@app.route('/generate-pdf', methods=['POST'])
-def generate_pdf():
-    # Assuming you get your LaTeX code from the POST request
-    # Here, we create a simple LaTeX document for demonstration
-    doc = Document()
+# @app.route('/generate-pdf', methods=['POST'])
+# def generate_pdf():
+#     # Assuming you get your LaTeX code from the POST request
+#     # Here, we create a simple LaTeX document for demonstration
+#     doc = Document()
 
-    with doc.create(Section('A section')):
-        doc.append('Some regular text and some ')
-        doc.append(italic('italic text. '))
-        with doc.create(Subsection('A subsection')):
-            doc.append('Also, some crazy characters: $&#{}')
+#     with doc.create(Section('A section')):
+#         doc.append('Some regular text and some ')
+#         doc.append(italic('italic text. '))
+#         with doc.create(Subsection('A subsection')):
+#             doc.append('Also, some crazy characters: $&#{}')
 
-    # Compile LaTeX document
-    doc.generate_pdf('basic_maketitle', clean_tex=False)
+#     # Compile LaTeX document
+#     doc.generate_pdf('basic_maketitle', clean_tex=False)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=env.get("PORT", 3000))
+    app.run(host="0.0.0.0", port=env.get("PORT", 5000))
