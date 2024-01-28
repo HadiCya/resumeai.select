@@ -4,3 +4,4 @@ authlib>=1.0
 requests>=2.27.1
 workers_kv.py
 pylatex
+google.generativeai

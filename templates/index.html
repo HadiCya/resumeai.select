@@ -1,146 +1,162 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin - Free Bulma template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css" />
     <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='styles.css') }}"
-    />
-  </head>
+    rel="stylesheet"
+    type="text/css"
+    href="{{ url_for('static', filename='styles.css') }}"
+  />
+</head>
 
-  {% if session.userinfo %}
-  <h1>Welcome {{session.userinfo.name}}!</h1>
-  <p><a href="/logout" id="qsLogoutBtn">Logout</a></p>
-  <body>
-    <div class="sidenav">
-      <aside class="menu is-hidden-mobile">
-        <p class="menu-label">Navigation</p>
-        <ul class="menu-list">
-          <li><a href="#name">Name</a></li>
-          <li><a href="#links">Links</a></li>
-          <li><a href="#education">Education</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#certifications">Certifications</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#projects">Projects</a></li>
-        </ul>
-      </aside>
-    </div>
+{% if session.userinfo %}
+<body>
 
-    <form action="/submit-school-info" method="post">
-      <div class="main">
-        <div class="card" id="name">
-          <button type="button" class="collapsible">Name</button>
-          <div class="content">
-            <input
-              class="input is-large"
-              type="text"
-              placeholder="Resume Name"
-              name="name"
-            />
-          </div>
+    <nav class="navbar is-white">
+        <div class="container">
+            <div class="navbar-brand" style="justify-content: center;">
+                <a href="#top">
+                    <img src="{{ url_for('static', filename='img/Transparent.png') }}" alt="Logo" style="width: 85px; height: 100px;">
+                </a>
+            </div>
         </div>
+    </nav>
+    
+    
 
-        <div class="card" id="links">
-          <button type="button" class="collapsible">Links</button>
-          <div class="content">
-            <input
-              class="input is-large"
-              type="text"
-              placeholder="LinkedIn"
-              name="linkedin"
-            />
-            <input
-              class="input is-large"
-              type="text"
-              placeholder="Github"
-              name="github"
-            />
-            <input
-              class="input is-large"
-              type="text"
-              placeholder="Website"
-              website="website"
-            />
-          </div>
-        </div>
+            <div class="sidenav">
+                <aside class="menu is-hidden-mobile">
+                    <p class="menu-label">
+                        Navigation
+                    </p>
+                    <ul class="menu-list">
+                        <li><a href="#personalInformation">Personal Information</a></li>
+                        <li><a href="#links">Links</a></li>
+                        <li><a href="#education">Education</a></li>
+                        <li><a href="#researchExperience">Research Experience</a></li>
+                        <li><a href="#industryExperience">Industry Experience</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#technicalSkills">Technical Skills</a></li>
 
-        <div class="card" id="education">
-          <button type="button" class="collapsible">Education</button>
-          <div class="content">
-            <button type="button" id="educationButton">Click me</button>
-            <div id="educationDiv"></div>
-          </div>
-        </div>
+                    </ul>
+                </aside>
+            </div>
 
-        <div class="card" id="skills">
-          <button type="button" class="collapsible">Skills</button>
-          <div class="content">
-            <button type="button" id="skillsButton">Click me</button>
-            <div id="skillsDiv"></div>
-          </div>
-        </div>
+            <div class="sidenav-right">
+                <aside class="menu is-hidden-mobile">
+                    <p class="menu-label">Prior Resumes</p>
+                    <div class="inner">
+                        <ul class="menu-list">
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                            <li><a href="#" download="document1" title="Document 1: More details...">2024-01-28 04:56:03</a></li>
+                        </ul>
+                    </div>
+                </aside>
+            </div>
+            
 
-        <div class="card" id="certifications">
-          <button type="button" class="collapsible">Certifications</button>
-          <div class="content">
-            <button type="button" id="certificationsButton">Click me</button>
-            <div id="certificationsDiv"></div>
-          </div>
-        </div>
+            <form action="/submit-school-info" method="post">
+            <div class="main bigpd">
+                <div class="card" id="Personal Information">
+                    <button type="button" class="button is-large collapsible">Personal Information</button>
+                    <div class="content">
+                        <input class="input" type="text" placeholder="Name" name="name" value="{{ existing_data.personal_info.name }}">
+                        <input class="input" type="email" placeholder="Email" name="email" value="{{ existing_data.personal_info.email }}">
+                        <input class="input" type="number" placeholder="Phone number" name="phone_number" value="{{ existing_data.personal_info.phone_number }}">
+                    </div>
+                </div>
+                <div class="card" id="links">
+                    <button type="button" class="button is-large collapsible">Links</button>
+                    <div class="content">
+                        <input class="input" type="url" placeholder="LinkedIn" name="linkedin" value="{{ existing_data.links.linkedin }}">
+                        <input class="input" type="url" placeholder="Github" name="github" value="{{ existing_data.links.github }}">
+                        <input class="input" type="url" placeholder="Website" name="website" value="{{ existing_data.links.website }}">
+                    </div>
+                </div>
+                <div class="card" id="education">
+                    <button type="button" class="button is-large collapsible">Education</button>
+                    <div class="content">
+                        {% for edu in existing_data.education %}
+                        
+                        {% endfor %}
+                        <button type="button" id="educationButton" class="button is-light is-info center">Add New</button>
+                        <div id="educationDiv"></div>
+                    </div>
+                </div>
+                <div class="card" id="researchExperience">
+                    <button type="button" class="button is-large collapsible">Research Experience</button>
+                    <div class="content">
+                        <button type="button" id="researchExperienceButton" class="button is-light is-info center">Add New</button>
+                        <div id="researchExperienceDiv"></div>
+                    </div>
+                </div>
+                <div class="card" id="industryExperience">
+                    <button type="button" class="button is-large collapsible">Industry Experience</button>
+                    <div class="content">
+                        <button type="button" id="industryExperienceButton" class="button is-light is-info center">Add New</button>
+                        <div id="industryExperienceDiv"></div>
+                    </div>
+                </div>
+                <div class="card" id="projects">
+                    <button type="button" class="button is-large collapsible">Projects</button>
+                    <div class="content">
+                        <button type="button" id="projectsButton" class="button is-light is-info center">Add New</button>
+                        <div id="projectsDiv"></div>
+                    </div>
+                </div>
+                <div class="card" id="technicalSkills">
+                    <button type="button" class="button is-large collapsible">Technical Skills</button>
+                    <div class="content">
+                        <input id="languagesSkillsInput" class="input" type="text" placeholder="Languages">
+                        <div id="languagesSkillsDiv"></div>
+                        <input id="frameSkillsInput" class="input" type="text" placeholder="Frameworks">
+                        <div id="frameSkillsDiv"></div>
+                        <input id="developerSkillsInput" class="input" type="text" placeholder="Developer Tools">
+                        <div id="developerSkillsDiv"></div>
+                        <input id="librarySkillsInput" class="input" type="text" placeholder="Libraries">
+                        <div id="librarySkillsDiv"></div>
+                    </div>
+                </div>
+                <input type="submit" class="button center is-large is-warning is-light" id="saveButton">Submit</button>
+            </div>
+        </form>
 
-        <div class="card" id="experience">
-          <button type="button" class="collapsible">Experience</button>
-          <div class="content">
-            <button type="button" id="experienceButton">Click me</button>
-            <div id="experienceDiv"></div>
-          </div>
-        </div>
-
-        <div class="card" id="projects">
-          <button type="button" class="collapsible">Projects</button>
-          <div class="content">
-            <button type="button" id="projectsButton">Click me</button>
-            <div id="projectsDiv"></div>
-          </div>
-        </div>
-        <input type="submit" value="Submit" />
-      </div>
-    </form>
-    {% else %}
-    <h1 id="profileDropDown">Welcome Guest</h1>
-    <p><a href="/login" id="qsLoginBtn">Login</a></p>
-    {% endif %}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link
-      href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css"
-      rel="stylesheet"
-    />
+    <link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
     <script src="{{ url_for('static', filename='scripts.js') }}"></script>
-    <script>
-      $(document).ready(function () {
-        $(".collapsible").click(function () {
-          $(this).next(".content").slideToggle("slow");
-        });
-      });
-    </script>
-  </body>
+
+</body>
+{% else %}
+<h1 id="profileDropDown">Welcome Guest</h1>
+<p><a href="/login" id="qsLoginBtn">Login</a></p>
+{% endif %}
+
 </html>

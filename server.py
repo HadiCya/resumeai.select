@@ -5,10 +5,11 @@ from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
-from flask import Flask, redirect, render_template, session, url_for, request, Response
+from flask import Flask, redirect, render_template, session, url_for, request, Response, jsonify
 import workers_kv
 from pylatex import Document, Section, Subsection, Command
 from pylatex.utils import italic, NoEscape
+import google.generativeai as genai
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -34,6 +35,39 @@ kv = workers_kv.Namespace(account_id=env.get("CF_ACCOUNT_ID"),
                           api_key=env.get("CF_API_TOKEN"),
                           namespace_id=env.get("CF_NAMESPACE_ID"))
 
+genai.configure(api_key=env.get("MAKERSUITE_KEY"))
+
+# Set up the model
+generation_config = {
+"temperature": 0.9,
+"top_p": 1,
+"top_k": 1,
+"max_output_tokens": 2048,
+}
+
+safety_settings = [
+{
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+},
+{
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+},
+{
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+},
+{
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+},
+]
+
+model = genai.GenerativeModel(model_name="gemini-pro",
+                                generation_config=generation_config,
+                                safety_settings=safety_settings)
+
 # Controllers API
 
 
@@ -44,9 +78,6 @@ def home():
         user_id = user_info["userinfo"]["sub"]
 
         existing_data = kv.read(user_id)
-        print(existing_data)
-        if not existing_data:
-            existing_data = {"school": "", "graduation_date": ""}
 
         return render_template(
             "index.html",
@@ -88,7 +119,6 @@ def logout():
         )
     )
 
-
 @app.route("/submit-school-info", methods=["POST"])
 def submit_school_info():
     if not session.get("user"):
@@ -97,63 +127,98 @@ def submit_school_info():
     user_info = session["user"]
     user_id = user_info["userinfo"]["sub"]
 
-    # Initialize containers for each section
+    # Personal information and links
+    personal_info = {
+        "name": request.form.get("name", ""),
+        "email": request.form.get("email", ""),
+        "phone_number": request.form.get("phone_number", "")
+    }
+    links = {
+        "linkedin": request.form.get("linkedin", ""),
+        "github": request.form.get("github", ""),
+        "website": request.form.get("website", "")
+    }
+
+    # Initialize containers for each dynamic section
     education_data = []
-    skills_data = []
-    certifications_data = []
-    experience_data = []
+    research_experience_data = []
+    industry_experience_data = []
     projects_data = []
+    technical_skills_data = {
+        "languages": request.form.getlist("languages"),
+        "frameworks": request.form.getlist("frameworks"),
+        "dev_tools": request.form.getlist("dev_tools"),
+        "libraries": request.form.getlist("libraries")
+    }
 
-    # Process each section
+    # Process each dynamic section
     for key in request.form:
-        index = key.split('_')[-1]
+        # Education Data
+        if key.startswith('education_'):
+            parts = key.split('_')
+            index = parts[1]
+            field = parts[2]
+            if len(education_data) < int(index):
+                education_data.append({})
+            education_data[int(index)-1][field] = request.form[key]
 
-        if key.startswith('school_'):
-            education_entry = {
-                'school': request.form.get('school_' + index, ''),
-                'degree': request.form.get('degree_' + index, ''),
-                'field_of_study': request.form.get('field_of_study_' + index, ''),
-                'start_year': request.form.get('start_year_' + index, ''),
-                'end_year': request.form.get('end_year_' + index, '')
-            }
-            education_data.append(education_entry)
-        elif key.startswith('skill_'):
-            skills_data.append(request.form.get(key, ''))
-        elif key.startswith('certification_'):
-            certifications_data.append(request.form.get(key, ''))
-        elif key.startswith('job_title_'):
-            experience_entry = {
-                'job_title': request.form.get('job_title_' + index, ''),
-                'company': request.form.get('company_' + index, ''),
-                'start_date': request.form.get('start_date_' + index, ''),
-                'end_date': request.form.get('end_date_' + index, ''),
-                'job_description': request.form.get('job_description_' + index, '')
-            }
-            experience_data.append(experience_entry)
-        elif key.startswith('project_title_'):
-            project_entry = {
-                'project_title': request.form.get('project_title_' + index, ''),
-                'tech_used': request.form.get('tech_used_' + index, ''),
-                'project_description': request.form.get('project_description_' + index, '')
-            }
-            projects_data.append(project_entry)
+        # Research Experience Data
+        elif key.startswith('researchexperience_'):
+            parts = key.split('_')
+            index = parts[1]
+            field = parts[2]
+            if len(research_experience_data) < int(index):
+                research_experience_data.append({})
+            research_experience_data[int(index)-1][field] = request.form[key]
+
+        # Industry Experience Data
+        elif key.startswith('industryexperience_'):
+            parts = key.split('_')
+            index = parts[1]
+            field = parts[2]
+            if len(industry_experience_data) < int(index):
+                industry_experience_data.append({})
+            industry_experience_data[int(index)-1][field] = request.form[key]
+
+        # Projects Data
+        elif key.startswith('projects_'):
+            parts = key.split('_')
+            index = parts[1]
+            field = parts[2]
+            if len(projects_data) < int(index):
+                projects_data.append({})
+            projects_data[int(index)-1][field] = request.form[key]
 
     # Compile all data
     user_data = {
+        "personal_info": personal_info,
+        "links": links,
         "education": education_data,
-        "skills": skills_data,
-        "certifications": certifications_data,
-        "experience": experience_data,
-        "projects": projects_data
+        "research_experience": research_experience_data,
+        "industry_experience": industry_experience_data,
+        "projects": projects_data,
+        "technical_skills": technical_skills_data
     }
 
     # Serialize data to JSON
     json_data = json.dumps(user_data)
 
-    # Storing data in Cloudflare KV
+    # Storing data in Cloudflare KV (assuming kv.write is a valid function call)
     kv.write({user_id: json_data})
 
     return "Information submitted successfully!"
+
+@app.route('/generate-pdf', methods=['POST'])
+def generate_pdf():
+
+    prompt_parts = [
+    f"Create a job description with the given HTML file {request}",
+    ]
+
+    response = model.generate_content(prompt_parts)
+    print(response.text)
+
+    return jsonify({"download-url": "google.com"})
 
 # @app.route('/generate-pdf', methods=['POST'])
 # def generate_pdf():
