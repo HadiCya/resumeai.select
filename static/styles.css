@@ -1,0 +1,70 @@
+.collapsible {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+.content {
+  padding: 0 18px;
+  background-color: white;
+  max-height: none;
+  overflow: visible;
+  transition: max-height 0.2s ease-out;
+}
+
+.collapsible:after {
+  content: '\02795';
+  font-size: 13px;
+  color: white;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2796";
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  position: fixed;
+  z-index: 1;
+  padding-left: 50px;
+}
+
+.main {
+  width: 70%;
+  margin: auto;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+a.active {
+  font-weight: bold;
+}
+
+.card {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 10px;
+}
