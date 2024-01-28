@@ -1,0 +1,141 @@
+{
+    "PersonalInfo": {
+        "Name": "Jake Ryan",
+        "Email": "xxx@yyy.com",
+        "PhoneNumber": "123-456-7890"
+    },
+    "Links": {
+      "Website": "URL",
+      "LinkedIn": "linkedin.com/in/jake",
+      "GitHub": "github.com/jake"
+    },
+    "Education": [
+      {
+        "Name": "Southwestern University",
+        "Location": "Georgetown, TX",
+        "Level": "Bachelors",
+        "Major": ["Computer Science", "Business"],
+        "StartDate": "Aug. 2018",
+        "EndDate": "May 2021",
+        "Coursework": ["Course 1", "Course 2"]
+      },      
+      {
+        "Name": "Blinn College",
+        "Location": "Bryan, TX",
+        "Level": "Associates",
+        "Major": ["Liberal Arts"],
+        "StartDate": "Aug. 2014",
+        "EndDate": "May 2018",
+        "Honors": "honors",
+        "Coursework": ["Course 1", "Course 2"]
+      }
+    ],
+    "IndustryExperience": [
+      {
+        "PositionTitle": "Information Technology Support Specialist",
+        "Company": "Southwestern University",
+        "Location": "Georgetown, TX",
+        "StartDate": "Sep. 2018",
+        "EndDate": "Present",
+        "Description": "In my role as a key IT support specialist, I have honed my skills in technical communication and problem-solving. My responsibilities include collaborating closely with managers to efficiently set up and manage campus computers, ensuring they meet the diverse needs of an academic environment. This role demands a high level of technical expertise and interpersonal skills, as I frequently interact with a wide range of users including students, faculty, and staff. I am adept at assessing and troubleshooting a variety of computer-related issues, demonstrating my ability to quickly diagnose and resolve technical problems to maintain seamless campus operations. Additionally, I play a crucial role in the maintenance and upkeep of extensive campus IT infrastructure. This includes regular servicing and management of classroom equipment, and the maintenance of over 200 printers across the campus. My role is integral in ensuring the reliability and efficiency of our campus's technology resources, thereby supporting the educational mission of the institution."
+      },
+      {
+        "PositionTitle": "Full-Stack Web Development Intern",
+        "Company": "Amazon",
+        "Location": "Seattle, USA",
+        "StartDate": "June 2022",
+        "EndDate": "August 2022",
+        "Description": "Led a team project for Amazon Web Services, creating a cloud-based web application using React and Node.js, which improved the user experience for AWS cloud management."
+      },
+      {
+        "PositionTitle": "Blockchain Intern",
+        "Company": "Coinbase",
+        "Location": "San Francisco, USA",
+        "StartDate": "January 2020",
+        "EndDate": "April 2020",
+        "Description": "Contributed to the development of secure smart contracts for Ethereum blockchain, enhancing transaction efficiency and security."
+      },
+      {
+        "PositionTitle": "Data Science Intern",
+        "Company": "Spotify",
+        "Location": "New York, USA",
+        "StartDate": "September 2020",
+        "EndDate": "December 2020",
+        "Description": "Analyzed large datasets to generate personalized music recommendations using advanced machine learning techniques."
+      }
+    ],
+    "ResearchExperience": [
+      {
+        "ProjectTitle": "Undergraduate Research Assistant",
+        "University": "Texas A\\&M University",
+        "Location": "College Station, TX",
+        "StartDate": "June 2020",
+        "EndDate": "Present",
+        "Description": "As a proficient software developer, I have a strong background in creating efficient and scalable web solutions. My expertise includes developing a REST API utilizing FastAPI alongside PostgreSQL, specifically designed to manage and store data from various learning management systems. This project showcased my ability to handle back-end development and data storage effectively. Additionally, I have developed a full-stack web application, leveraging a combination of Flask, React, PostgreSQL, and Docker. This application was intricately designed to analyze and interpret GitHub data, demonstrating my skill in both front-end and back-end development. Furthermore, I have engaged in innovative research to explore effective methods for visualizing GitHub collaboration, particularly in educational settings like classrooms. This endeavor highlights my capabilities in data visualization and my commitment to enhancing collaborative experiences in learning environments."
+      },      
+      {
+        "ProjectTitle": "Artificial Intelligence Research Assistant",
+        "University": "Southwestern University",
+        "Location": "Georgetown, TX",
+        "StartDate": "May 2019",
+        "EndDate": "July 2019",
+        "Description": "My professional experience in game development and research is marked by a series of innovative projects and contributions. I explored cutting-edge methods to generate video game dungeons, drawing inspiration from classic titles like 'The Legend of Zelda'. This theoretical exploration was complemented by practical application: I developed a game in Java specifically to test these procedurally generated dungeons, demonstrating my proficiency in both game design and Java programming. Additionally, I made a significant impact in collaborative development environments, contributing over 50,000 lines of code to an established codebase using Git, showcasing my technical expertise and team collaboration skills. My research extended to conducting a human subject study, aimed at understanding player preferences regarding video game dungeon generation techniques, emphasizing my commitment to user experience and research methodology. My findings and insights were not only compiled into an 8-page scholarly paper but also shared through multiple presentations on-campus, highlighting my abilities in academic writing and public speaking. Furthermore, my research garnered international attention when I presented it virtually at the World Conference on Computational Intelligence, indicating my contribution to the field of computational intelligence in gaming."
+      },
+      {
+        "ProjectTitle": "Quantum Computing Algorithms",
+        "StartDate": "May 2020",
+        "EndDate": "August 2020",
+        "Description": "Explored novel algorithms in the realm of quantum computing, focusing on cryptographic applications."
+      }
+    ],
+    "Projects": [
+      {
+        "Name": "Gitlytics",
+        "TechUsed": ["Python", "Flask", "React", "PostgreSQL", "Docker"],
+        "Description": "In my recent project, I successfully developed a comprehensive full-stack web application, showcasing my versatility in software development. The core of this application involved utilizing Flask to serve a robust REST API, coupled with React for a dynamic and responsive frontend. This combination allowed for an efficient and scalable architecture, tailored to meet the demands of modern web applications. A key feature of this project was the implementation of GitHub OAuth, which enabled seamless access to users' repository data. This integration not only enhanced the user experience but also showcased my ability to implement secure and effective authentication methods. Furthermore, I was responsible for the intricate task of visualizing GitHub data, an initiative that provided valuable insights into collaboration patterns. This aspect of the project highlighted my skills in data presentation and analytics. To ensure high performance and responsiveness, I integrated Celery with Redis for handling asynchronous tasks. This not only optimized the application's processing capabilities but also demonstrated my expertise in utilizing advanced programming techniques to improve application efficiency and user experience."
+      },
+      {
+        "Name": "Simple Paintball",
+        "TechUsed": ["Spigot API", "Java", "Maven", "TravisCI", "Git"],
+        "Description": "In a previous position, I undertook an innovative project where I developed a Minecraft server plugin, tailored to entertain kids during their free time. This initiative not only highlighted my creative programming skills but also demonstrated my ability to develop engaging content for a younger audience. The success of this project was evident as the plugin was published on popular websites, garnering over 2,000 downloads and receiving an impressive average rating of 4.5 out of 5 stars. This wide-reaching impact is a testament to the plugin's quality and appeal. Furthermore, I implemented a sophisticated continuous delivery system using TravisCI. This setup ensured that each new release of the plugin was built and deployed efficiently, showcasing my proficiency in modern software development practices and my commitment to maintaining high-quality standards. Additionally, my role involved active collaboration with Minecraft server administrators. This allowed me to gather valuable feedback and suggestions for features, which I used to continually refine and enhance the plugin. Such interactions not only improved the plugin's functionality and user experience but also demonstrated my ability to effectively work with and incorporate feedback from key stakeholders."
+      },
+      {
+        "Name": "Cybersecurity Vulnerability Scanner",
+        "TechUsed": ["Java", "Kali Linux", "Wireshark"],
+        "Description": "Developed a tool for detecting vulnerabilities in network systems, enhancing cybersecurity measures."
+      }, 
+      {
+        "Name": "Virtual Reality Game Development",
+        "TechUsed": ["Unity", "C#", "VR SDKs"],
+        "Description": "Developed a VR game focusing on immersive user experience, incorporating advanced 3D graphics and interactive gameplay."
+      },
+      {
+        "Name": "Fitness Tracker App",
+        "TechUsed": ["Kotlin", "Android SDK", "Firebase"],
+        "Description": "Developed a fitness tracking application for Android, with features for workout logging, progress tracking, and social sharing."
+      },
+      {
+        "Name": "Personal Finance Management Tool",
+        "TechUsed": ["React", "Node.js", "MongoDB"],
+        "Description": "Developed a comprehensive personal finance management web and mobile tool with features for budgeting, expense tracking, and financial forecasting."
+      },
+      {
+        "Name": "Automated Essay Grading System",
+        "TechUsed": ["Python", "NLP Algorithms", "Flask"],
+        "Description": "Designed a web application for automated essay grading using natural language processing to assess writing quality and coherence."
+      },
+      {
+        "Name": "Automated Stock Trader",
+        "TechUsed": ["Python", "Pandas", "Machine Learning"],
+        "Description": "Created an algorithmic trading bot that analyzes stock market data and makes trades based on predictive modeling."
+      }
+    ],
+    "TechnicalSkills": {
+      "Languages": ["Java", "Python", "C/C++", "SQL (Postgres)", "JavaScript", "HTML/CSS", "R"],
+      "Frameworks": ["React", "Node.js", "Flask", "JUnit", "WordPress", "Material-UI", "FastAPI"],
+      "DeveloperTools": ["Git", "Docker", "TravisCI", "Google Cloud Platform", "VS Code", "Visual Studio", "PyCharm", "IntelliJ", "Eclipse"],
+      "Libraries": ["pandas", "NumPy", "Matplotlib"]
+    }
+  }
+  
+  

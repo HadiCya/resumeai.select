@@ -1,0 +1,9 @@
+Underdog.io is a modern recruiting platform. One of our hiring partners is looking to hire a Full Stack Software Engineer. In this role, you'll work on tools, features, and applications that are critical to the company's needs with opportunities to switch teams and projects as you and the business grow and evolve. The ideal candidate will be versatile, display leadership qualities, and be enthusiastic to take on new problems as the company continues to push technology forward.
+
+The company is looking to hire someone with (1) a Bachelor’s degree or equivalent practical experience, (2) experience with software development in one or more programming languages, and (3) experience with data structures or algorithms in either an academic or industry setting. The ideal candidate should also have experience building and developing large-scale infrastructure, accessible technologies, distributed systems or networks, and/or have experience with compute technologies.
+
+On any given day, you will (1) write product or system development code, (2) participate in or lead design reviews with peers and stakeholders to decide amongst available technologies, (3) review code developed by other developers and provide feedback to ensure best practices, (4) contribute to existing documentation and adapt content based on product/program updates and user feedback, and (5) triage product or system issues and debug/track/resolve by analyzing the sources of issues and the impact on the system.
+
+The company uses popular languages, frameworks, and tools, including JavaScript, Python, Golang, Scala, Ruby on Rails, SQL, AWS, Kubernetes, and Docker.
+
+The Underdog.io team is available if you have any questions or would like to discuss other potential roles.

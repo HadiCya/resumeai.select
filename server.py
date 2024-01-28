@@ -1,7 +1,10 @@
 import io
 import json
 from os import environ as env
+import os
 from urllib.parse import quote_plus, urlencode
+from Best_fit_plus_summary import proompting
+from Dynamic_template_maker import proompting2
 
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
@@ -208,23 +211,12 @@ def generate_pdf():
     ]
 
     response = model.generate_content(prompt_parts)
-    print(response.text)
 
-        # Assuming you get your LaTeX code from the POST request
-        # Here, we create a simple LaTeX document for demonstration
-    doc = Document()
+    proompting2(proompting(kv.read("google-oauth2|108354080974476747982"), response.text))
+    
+    os.system("pdflatex test_out.tex")
 
-    with doc.create(Section('A section')):
-        doc.append('Some regular text and some ')
-        doc.append(italic('italic text. '))
-        with doc.create(Subsection('A subsection')):
-            doc.append('Also, some crazy characters: $&#{}')
-
-        
-        # Compile LaTeX document
-    doc.generate_pdf("generated_resume", clean_tex=False)
-
-    download_url = request.url_root + 'download/' + "generated_resume" + ".pdf"
+    download_url = request.url_root + 'download/' + "test_out" + ".pdf"
 
     return {'url': download_url}
 
