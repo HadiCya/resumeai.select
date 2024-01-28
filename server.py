@@ -203,35 +203,30 @@ def logout():
 
 @app.route('/generate-pdf', methods=['POST'])
 def generate_pdf():
-    if session.get("user"):
-        user_info = session["user"]
-        user_id = user_info["userinfo"]["sub"]
-        prompt_parts = [
-        f"Create a job description with the given HTML file {request}",
-        ]
+    prompt_parts = [
+    f"Create a job description with the given HTML file {request}",
+    ]
 
-        response = model.generate_content(prompt_parts)
-        print(response.text)
+    response = model.generate_content(prompt_parts)
+    print(response.text)
 
         # Assuming you get your LaTeX code from the POST request
         # Here, we create a simple LaTeX document for demonstration
-        doc = Document()
+    doc = Document()
 
-        with doc.create(Section('A section')):
-            doc.append('Some regular text and some ')
-            doc.append(italic('italic text. '))
-            with doc.create(Subsection('A subsection')):
-                doc.append('Also, some crazy characters: $&#{}')
+    with doc.create(Section('A section')):
+        doc.append('Some regular text and some ')
+        doc.append(italic('italic text. '))
+        with doc.create(Subsection('A subsection')):
+            doc.append('Also, some crazy characters: $&#{}')
 
         
         # Compile LaTeX document
-        doc.generate_pdf(user_id, clean_tex=False)
+    doc.generate_pdf("generated_resume", clean_tex=False)
 
-        download_url = request.url_root + 'download/' + user_id + ".pdf"
+    download_url = request.url_root + 'download/' + "generated_resume" + ".pdf"
 
-        return {'url': download_url}
-    else:
-        return {'url': 'resumeai.select'}
+    return {'url': download_url}
 
 @app.route('/download/<filename>', methods=['GET'])
 def download_pdf(filename):
